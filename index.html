@@ -1,0 +1,467 @@
+<!-- Dependencias (Tailwind CSS, FontAwesome, Three.js) -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --gold: #D4AF37;
+    --dark-gold: #AA7A1E;
+    --bg-dark: #070707;
+    --neon-red: #FF2A51;
+  }
+  
+  /* Reset visual simulando el body */
+  #mvnwearz-app {
+    background-color: var(--bg-dark);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-syne {
+    font-family: 'Syne', sans-serif;
+  }
+
+  .gold-text { color: var(--gold); }
+  .gold-bg { background-color: var(--gold); color: black; }
+  .gold-border { border-color: var(--gold); }
+  
+  .glass-header {
+    background: rgba(7, 7, 7, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  }
+
+  .neon-sale {
+    box-shadow: 0 0 15px var(--neon-red);
+    border: 1px solid var(--neon-red);
+  }
+
+  .btn-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -10px var(--gold);
+  }
+</style>
+
+<div id="mvnwearz-app">
+
+  <!-- Anuncio Superior -->
+  <div class="bg-black text-center py-2 text-xs tracking-widest text-gray-300 border-b border-gray-800">
+    ENVÍOS A TODA COLOMBIA | EST. 2019 PASTO, NARIÑO
+  </div>
+
+  <!-- Navegación -->
+  <header class="sticky top-0 z-50 glass-header py-4 px-6 flex justify-between items-center w-full">
+    <div class="text-2xl font-syne font-extrabold tracking-tighter">
+      mvn<span class="gold-text">wearz</span>®
+    </div>
+    <nav class="hidden md:flex gap-6 text-sm font-bold tracking-widest uppercase">
+      <a href="#hombre" class="hover:text-[#D4AF37] transition">Hombre</a>
+      <a href="#mujer" class="hover:text-[#D4AF37] transition">Mujer</a>
+      <a href="#rebajas" class="text-[#FF2A51] hover:text-white transition drop-shadow-[0_0_5px_rgba(255,42,81,0.8)]">Rebajas</a>
+    </nav>
+    <div class="flex gap-4">
+      <button onclick="toggleModal('nfc-modal')" class="text-gray-300 hover:text-white" title="Verificador NFC">
+        <i class="fa-solid fa-microchip"></i>
+      </button>
+      <button onclick="toggleModal('chatbot-modal')" class="text-gray-300 hover:text-white" title="Asistente de Estilo">
+        <i class="fa-solid fa-robot"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative w-full h-[70vh] flex items-center justify-center overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=1920" alt="Streetwear Model" class="absolute inset-0 w-full h-full object-cover opacity-50">
+    <div class="absolute inset-0 bg-gradient-to-t from-[#070707] to-transparent"></div>
+    <div class="relative z-10 text-center px-4">
+      <h1 class="text-5xl md:text-7xl font-extrabold mb-4 uppercase tracking-tighter drop-shadow-lg">
+        La Calle <span class="gold-text">Es Tuya</span>
+      </h1>
+      <p class="text-gray-300 mb-8 max-w-lg mx-auto">Materiales premium. Siluetas oversize. Únete a la cultura mvnwearz.</p>
+      <button onclick="document.getElementById('hombre').scrollIntoView({behavior: 'smooth'})" class="gold-bg px-8 py-3 rounded-full font-bold uppercase tracking-wider btn-hover transition-all">
+        Comprar Colección
+      </button>
+    </div>
+  </section>
+
+  <!-- Catálogo: Hombre -->
+  <section id="hombre" class="max-w-7xl mx-auto py-16 px-6">
+    <h2 class="text-3xl font-syne font-bold mb-10 border-l-4 gold-border pl-4">COLECCIÓN HOMBRE</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- Producto 1 -->
+      <div class="bg-[#111] rounded-xl overflow-hidden group border border-gray-800 hover:border-[#D4AF37] transition">
+        <div class="relative h-96 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=600" alt="Hoodie Oversize" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <button onclick="open3DViewer()" class="absolute top-4 right-4 bg-black/70 text-white p-2 rounded-full backdrop-blur hover:text-[#D4AF37]">
+            <i class="fa-solid fa-cube"></i> 3D
+          </button>
+        </div>
+        <div class="p-6">
+          <h3 class="font-bold text-lg mb-2">Hoodie Onyx Oversize</h3>
+          <p class="text-gray-400 text-sm mb-4">550 GSM - Logo de alta densidad.</p>
+          <div class="flex justify-between items-center">
+            <span class="gold-text font-bold text-xl">$185.000 COP</span>
+            <button onclick="openCheckout('Hoodie Onyx Oversize', 185000)" class="bg-white text-black px-4 py-2 rounded font-bold hover:bg-gray-200 transition">
+              Comprar
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Catálogo: Mujer -->
+  <section id="mujer" class="max-w-7xl mx-auto py-16 px-6 bg-[#0a0a0a]">
+    <h2 class="text-3xl font-syne font-bold mb-10 border-l-4 gold-border pl-4">COLECCIÓN MUJER</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- Producto 2 -->
+      <div class="bg-[#111] rounded-xl overflow-hidden group border border-gray-800 hover:border-[#D4AF37] transition">
+        <div class="relative h-96 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&q=80&w=600" alt="Crop Top" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <button onclick="toggleModal('tryon-modal')" class="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 text-xs rounded-full backdrop-blur hover:text-[#D4AF37]">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Probar IA
+          </button>
+        </div>
+        <div class="p-6">
+          <h3 class="font-bold text-lg mb-2">Signature Crop Top</h3>
+          <p class="text-gray-400 text-sm mb-4">Ajuste perfecto y tejido transpirable.</p>
+          <div class="flex justify-between items-center">
+            <span class="gold-text font-bold text-xl">$85.000 COP</span>
+            <button onclick="openCheckout('Signature Crop Top', 85000)" class="bg-white text-black px-4 py-2 rounded font-bold hover:bg-gray-200 transition">
+              Comprar
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Catálogo: Rebajas -->
+  <section id="rebajas" class="max-w-7xl mx-auto py-16 px-6">
+    <h2 class="text-3xl font-syne font-bold mb-10 border-l-4 border-[#FF2A51] pl-4 text-[#FF2A51]">ÚLTIMOS DROPS (REBAJAS)</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- Producto 3 -->
+      <div class="bg-[#111] rounded-xl overflow-hidden group neon-sale transition">
+        <div class="relative h-96 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=600" alt="Heavy Tee Red" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute top-4 right-4 bg-[#FF2A51] text-white px-3 py-1 rounded font-bold text-sm">
+            -30%
+          </div>
+        </div>
+        <div class="p-6">
+          <h3 class="font-bold text-lg mb-2">Heavy Tee Red Gothic</h3>
+          <p class="text-gray-400 text-sm mb-4">Últimas unidades disponibles.</p>
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-gray-500 line-through block text-sm">$120.000</span>
+              <span class="text-[#FF2A51] font-bold text-xl">$84.000 COP</span>
+            </div>
+            <button onclick="openCheckout('Heavy Tee Red Gothic', 84000)" class="bg-[#FF2A51] text-white px-4 py-2 rounded font-bold hover:bg-red-700 transition">
+              Comprar
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-800 bg-black pt-12 pb-6 mt-12">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+      <div>
+        <h3 class="font-syne text-xl gold-text font-bold mb-4">mvnwearz®</h3>
+        <p class="text-gray-400 text-sm">Nacidos en el frío y la fuerza cultural de Pasto, Nariño, en 2019. Redefiniendo el streetwear colombiano de lujo.</p>
+      </div>
+      <div>
+        <h4 class="font-bold mb-4">Pagos Seguros</h4>
+        <p class="text-gray-400 text-sm">Nequi, Addi, Sistecrédito y Tarjetas vía Wompi.</p>
+      </div>
+      <div>
+        <h4 class="font-bold mb-4">Soporte</h4>
+        <p class="text-gray-400 text-sm"><i class="fa-brands fa-whatsapp text-green-500"></i> +57 3166169331</p>
+      </div>
+    </div>
+    <div class="text-center text-gray-600 text-xs">
+      &copy; 2026 mvnwearz. Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <!-- ================= MODALES ================= -->
+
+  <!-- Modal Checkout WhatsApp -->
+  <div id="checkout-modal" class="fixed inset-0 bg-black/90 backdrop-blur-sm z-[100] hidden flex items-center justify-center px-4">
+    <div class="bg-[#111] border border-[#D4AF37]/50 rounded-2xl w-full max-w-md p-6 relative">
+      <button onclick="closeModal('checkout-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white">✕</button>
+      <h3 class="font-syne text-2xl mb-2">Finalizar Pedido</h3>
+      <p id="checkout-product-name" class="gold-text font-bold text-lg mb-1"></p>
+      <p id="checkout-product-price" class="text-gray-300 mb-6"></p>
+
+      <div class="mb-4">
+        <label class="block text-sm font-bold mb-2">Talla:</label>
+        <div class="flex gap-2">
+          <button class="size-btn flex-1 py-2 border border-gray-600 rounded hover:border-[#D4AF37] focus:bg-[#D4AF37] focus:text-black">S</button>
+          <button class="size-btn flex-1 py-2 border border-gray-600 rounded hover:border-[#D4AF37] focus:bg-[#D4AF37] focus:text-black">M</button>
+          <button class="size-btn flex-1 py-2 border border-gray-600 rounded hover:border-[#D4AF37] focus:bg-[#D4AF37] focus:text-black">L</button>
+          <button class="size-btn flex-1 py-2 border border-gray-600 rounded hover:border-[#D4AF37] focus:bg-[#D4AF37] focus:text-black">XL</button>
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <label class="block text-sm font-bold mb-2">Método de Pago:</label>
+        <select id="checkout-payment" class="w-full bg-black border border-gray-600 rounded p-3 text-white focus:border-[#D4AF37] outline-none">
+          <option value="Nequi">Nequi</option>
+          <option value="Tarjeta">Tarjeta (Crédito/Débito)</option>
+          <option value="Addi">Addi (Cuotas)</option>
+          <option value="Sistecredito">Sistecrédito</option>
+        </select>
+      </div>
+
+      <button onclick="sendWhatsAppOrder()" class="w-full bg-[#25D366] text-white font-bold py-3 rounded hover:bg-[#1EBE53] transition flex justify-center items-center gap-2">
+        <i class="fa-brands fa-whatsapp text-xl"></i> Comprar vía WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal Chatbot -->
+  <div id="chatbot-modal" class="fixed bottom-4 right-4 bg-[#111] border border-[#D4AF37]/50 rounded-xl w-80 h-96 shadow-2xl z-[100] hidden flex-col">
+    <div class="bg-black border-b border-gray-800 p-4 flex justify-between items-center rounded-t-xl">
+      <div class="font-bold gold-text"><i class="fa-solid fa-robot"></i> Asistente mvnwearz</div>
+      <button onclick="closeModal('chatbot-modal')" class="text-gray-400 hover:text-white">✕</button>
+    </div>
+    <div id="chat-body" class="flex-1 p-4 overflow-y-auto text-sm text-gray-300 space-y-4">
+      <div class="bg-gray-800/50 p-3 rounded-lg w-[85%]">
+        ¡Hola! Soy tu asistente de estilo. ¿Tienes dudas sobre precios, tallas o nuestros métodos de pago?
+      </div>
+    </div>
+    <div class="p-3 border-t border-gray-800 flex gap-2">
+      <input type="text" id="chat-input" placeholder="Escribe tu pregunta..." class="flex-1 bg-black border border-gray-700 rounded px-3 py-2 text-sm outline-none focus:border-[#D4AF37]">
+      <button onclick="sendChatMessage()" class="gold-bg text-black px-3 py-2 rounded"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <!-- Modal NFC -->
+  <div id="nfc-modal" class="fixed inset-0 bg-black/90 backdrop-blur-sm z-[100] hidden flex items-center justify-center px-4">
+    <div class="bg-[#111] border border-[#D4AF37]/50 rounded-2xl w-full max-w-sm p-8 text-center relative">
+      <button onclick="closeModal('nfc-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white">✕</button>
+      <i class="fa-solid fa-microchip text-5xl gold-text mb-4 animate-pulse"></i>
+      <h3 class="font-syne text-xl mb-2">Verificación de Autenticidad</h3>
+      <p class="text-sm text-gray-400 mb-6">Acerca tu dispositivo al chip NFC en la etiqueta de tu prenda o ingresa el código manual.</p>
+      <input type="text" placeholder="Ej: MVN-2026-X99" class="w-full bg-black border border-gray-600 rounded p-3 text-center uppercase tracking-widest text-white mb-4 outline-none focus:border-[#D4AF37]">
+      <button onclick="verifyNFC()" class="w-full gold-bg text-black font-bold py-3 rounded">Verificar Pieza</button>
+      <p id="nfc-result" class="mt-4 text-sm font-bold hidden"></p>
+    </div>
+  </div>
+
+  <!-- Contenedor Visor 3D -->
+  <div id="viewer-3d-modal" class="fixed inset-0 bg-black/95 backdrop-blur z-[100] hidden flex items-center justify-center">
+    <button onclick="closeModal('viewer-3d-modal')" class="absolute top-6 right-6 text-white text-2xl z-10 hover:text-[#D4AF37]">✕</button>
+    <div id="canvas-container" class="w-full max-w-3xl h-[60vh] border border-[#D4AF37]/30 rounded-xl overflow-hidden relative">
+      <div class="absolute top-4 left-4 text-xs font-mono text-gray-400 z-10">Arrastra para rotar | Scrollea para zoom</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Lógica JavaScript -->
+<script>
+  /* ================== ESTADOS ================== */
+  let currentProduct = "";
+  let currentPrice = 0;
+  let selectedSize = "";
+  const WA_NUMBER = "573166169331";
+
+  /* ================== UI MODALES ================== */
+  function toggleModal(id) {
+    const el = document.getElementById(id);
+    if (el.classList.contains('hidden')) {
+      el.classList.remove('hidden');
+    } else {
+      el.classList.add('hidden');
+    }
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.add('hidden');
+  }
+
+  /* ================== CHECKOUT WHATSAPP ================== */
+  function openCheckout(name, price) {
+    currentProduct = name;
+    currentPrice = price;
+    selectedSize = ""; // Resetear talla
+    
+    document.getElementById('checkout-product-name').innerText = name;
+    document.getElementById('checkout-product-price').innerText = `$${price.toLocaleString('es-CO')} COP`;
+    
+    // Reset botones de talla
+    document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('bg-[#D4AF37]', 'text-black'));
+    
+    toggleModal('checkout-modal');
+  }
+
+  // Lógica para seleccionar talla
+  document.querySelectorAll('.size-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('bg-[#D4AF37]', 'text-black'));
+      e.target.classList.add('bg-[#D4AF37]', 'text-black');
+      selectedSize = e.target.innerText;
+    });
+  });
+
+  function sendWhatsAppOrder() {
+    if (!selectedSize) {
+      // Mostrar alerta visual en el propio modal en lugar de un alert() nativo
+      const label = document.querySelector('label');
+      const originalText = label.innerText;
+      label.innerText = "¡Por favor selecciona una talla!";
+      label.classList.add('text-red-500');
+      setTimeout(() => { label.innerText = originalText; label.classList.remove('text-red-500'); }, 2000);
+      return;
+    }
+
+    const paymentMethod = document.getElementById('checkout-payment').value;
+    
+    const message = `*¡Hola mvnwearz!* ⚡\nQuiero confirmar la compra de mi drop:\n\n` +
+                    `• *Producto:* ${currentProduct}\n` +
+                    `• *Talla:* ${selectedSize}\n` +
+                    `• *Valor:* $${currentPrice.toLocaleString('es-CO')} COP\n` +
+                    `• *Método de Pago:* ${paymentMethod}\n\n` +
+                    `Por favor, indíquenme los pasos a seguir.`;
+                    
+    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+    closeModal('checkout-modal');
+  }
+
+  /* ================== CHATBOT SIMULADO ================== */
+  function sendChatMessage() {
+    const input = document.getElementById('chat-input');
+    const text = input.value.trim();
+    if (!text) return;
+
+    const chatBody = document.getElementById('chat-body');
+    
+    // Mensaje de usuario
+    chatBody.innerHTML += `<div class="bg-[#D4AF37]/20 border border-[#D4AF37]/50 p-3 rounded-lg w-[85%] ml-auto text-right text-white">${text}</div>`;
+    input.value = "";
+    chatBody.scrollTop = chatBody.scrollHeight;
+
+    // Simular respuesta del bot
+    setTimeout(() => {
+      let reply = "Nuestro equipo te atenderá pronto.";
+      const lower = text.toLowerCase();
+      
+      if (lower.includes("precio") || lower.includes("cuanto") || lower.includes("costo")) {
+        reply = "Los precios de nuestros hoodies oscilan entre $150.000 y $185.000 COP, y las camisetas desde $84.000 COP en rebaja. ¿Buscas algo en especial?";
+      } else if (lower.includes("pago") || lower.includes("nequi") || lower.includes("addi")) {
+        reply = "Aceptamos Nequi, tarjetas (crédito/débito) y ofrecemos financiación con Addi y Sistecrédito.";
+      } else if (lower.includes("envio") || lower.includes("donde")) {
+        reply = "Hacemos envíos nacionales desde Pasto a toda Colombia. El tiempo de entrega es de 2 a 5 días hábiles.";
+      }
+
+      chatBody.innerHTML += `<div class="bg-gray-800/50 p-3 rounded-lg w-[85%] text-gray-300"><b>Asistente:</b> ${reply}</div>`;
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }, 1000);
+  }
+
+  /* ================== VERIFICACIÓN NFC ================== */
+  function verifyNFC() {
+    const result = document.getElementById('nfc-result');
+    result.classList.remove('hidden', 'text-red-500', 'text-green-500');
+    result.innerText = "Verificando token criptográfico...";
+    result.classList.add('text-gray-400');
+
+    setTimeout(() => {
+      result.classList.remove('text-gray-400');
+      result.classList.add('text-[#D4AF37]');
+      result.innerText = "✅ PRENDA ORIGINAL VERIFICADA.\nRegistrada en la bóveda de mvnwearz.";
+    }, 1500);
+  }
+
+  /* ================== VISOR 3D (THREE.JS) ================== */
+  let is3DInitialized = false;
+
+  function open3DViewer() {
+    toggleModal('viewer-3d-modal');
+    
+    if (!is3DInitialized) {
+      init3D();
+      is3DInitialized = true;
+    }
+  }
+
+  function init3D() {
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color('#070707');
+
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+    camera.position.z = 5;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
+
+    // Iluminación para simular estudio
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambientLight);
+    
+    const spotLight = new THREE.SpotLight(0xD4AF37, 1);
+    spotLight.position.set(5, 5, 5);
+    scene.add(spotLight);
+
+    // Malla simulando la prenda
+    const geometry = new THREE.TorusKnotGeometry(1, 0.4, 100, 16);
+    const material = new THREE.MeshStandardMaterial({ 
+      color: 0x111111,
+      roughness: 0.8,
+      metalness: 0.2
+    });
+    const garment = new THREE.Mesh(geometry, material);
+    scene.add(garment);
+
+    // Interacción básica con el ratón
+    let isDragging = false;
+    let previousMousePosition = { x: 0, y: 0 };
+
+    container.addEventListener('mousedown', (e) => { isDragging = true; });
+    container.addEventListener('mouseup', () => { isDragging = false; });
+    container.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        const deltaMove = { x: e.offsetX - previousMousePosition.x, y: e.offsetY - previousMousePosition.y };
+        garment.rotation.y += deltaMove.x * 0.01;
+        garment.rotation.x += deltaMove.y * 0.01;
+      }
+      previousMousePosition = { x: e.offsetX, y: e.offsetY };
+    });
+
+    // Animación automática lenta
+    function animate() {
+      requestAnimationFrame(animate);
+      if (!isDragging) {
+        garment.rotation.y += 0.005;
+      }
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Redimensionar canvas
+    window.addEventListener('resize', () => {
+      if (container.clientWidth > 0) {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      }
+    });
+  }
+</script>
