@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mvnwearz® | Luxury Streetwear Pasto</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              black: '#0B0B0B',
+              dark: '#161616',
+              gold: '#D4AF37',
+              goldLight: '#F3E5AB',
+              sale: '#FF2E4C',
+              border: '#2A2A2A'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            syne: ['Syne', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { background-color: #0B0B0B; color: #FFFFFF; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0B0B0B; }
+    ::-webkit-scrollbar-thumb { background: #2A2A2A; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
+    
+    .gold-text {
+      background: linear-gradient(135deg, #FFF5D0 0%, #D4AF37 50%, #997E24 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .neon-rebajas {
+      box-shadow: 0 0 20px rgba(255, 46, 76, 0.4);
+      border-color: rgba(255, 46, 76, 0.6) !important;
+    }
+    .glass {
+      background: rgba(11, 11, 11, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    
+    .spinner {
+      border: 3px solid rgba(212, 175, 55, 0.3);
+      border-radius: 50%;
+      border-top: 3px solid #D4AF37;
+      width: 24px;
+      height: 24px;
+      -webkit-animation: spin 1s linear infinite;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Ensure modal inputs look good on mobile */
+    select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23D4AF37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 1em;
+    }
+  </style>
+</head>
+
+<body class="antialiased font-sans flex flex-col min-h-screen">
+
+  <!-- Topbar -->
+  <div class="bg-brand-gold text-black text-xs font-bold py-2 px-4 text-center tracking-wider uppercase flex flex-col md:flex-row justify-center items-center gap-2 md:gap-6">
+    <span>🔥 NUEVO DROP DISPONIBLE</span>
+    <div class="flex items-center gap-1 font-mono bg-black text-brand-gold px-2 py-0.5 rounded">
+      <span id="countdown">00h 00m 00s</span>
+    </div>
+    <span class="hidden md:inline">PASTO, NARIÑO (EST. 2019)</span>
+  </div>
+
+  <!-- Header -->
+  <header class="glass sticky top-0 z-40 border-b border-brand-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="#" class="font-syne text-3xl font-extrabold tracking-tighter gold-text uppercase hover:scale-105 transition-transform">
+        mvnwearz<span class="text-sm align-top">®</span>
+      </a>
+
+      <nav class="hidden md:flex gap-6 text-sm font-medium">
+        <button onclick="filterProducts('all')" class="text-gray-300 hover:text-brand-gold transition uppercase tracking-wide">Todos</button>
+        <button onclick="filterProducts('hombre')" class="text-gray-300 hover:text-brand-gold transition uppercase tracking-wide">Hombre / Unisex</button>
+        <button onclick="filterProducts('mujer')" class="text-gray-300 hover:text-brand-gold transition uppercase tracking-wide">Mujer</button>
+        <button onclick="filterProducts('rebajas')" class="text-brand-sale hover:text-red-400 transition font-bold flex items-center gap-1 uppercase tracking-wide">
+          <i class="fa-solid fa-tag"></i> Rebajas
+        </button>
+        <a href="#studio-3d" class="text-gray-300 hover:text-brand-gold transition uppercase tracking-wide">3D Studio</a>
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <!-- Mobile Menu Toggle -->
+        <button class="text-gray-300 hover:text-brand-gold md:hidden">
+          <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <!-- Hero -->
+    <section class="relative py-24 sm:py-32 px-4 overflow-hidden flex items-center justify-center border-b border-brand-border min-h-[70vh]">
+      <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1618244972963-dbee1a7edc95?auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center opacity-30"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/80 to-transparent"></div>
+      
+      <div class="relative z-10 text-center max-w-4xl mx-auto space-y-6">
+        <span class="px-4 py-1.5 text-xs font-mono font-bold tracking-widest text-brand-gold uppercase border border-brand-gold/40 rounded-full bg-brand-dark/80 backdrop-blur-sm">
+          Colección Oficial 2026
+        </span>
+        <h1 class="font-syne text-5xl sm:text-7xl font-extrabold uppercase leading-tight drop-shadow-2xl">
+          Cultura, Altura <br> <span class="gold-text">Y Calle</span>
+        </h1>
+        <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto drop-shadow-md">
+          Siluetas pesadas y estéticas minimalistas nacidas en el sur de Colombia. Diseño auténtico desde Pasto para el mundo, modelado para la calle.
+        </p>
+        <button onclick="document.getElementById('catalogo').scrollIntoView({behavior: 'smooth'})" class="inline-block mt-4 px-10 py-4 bg-brand-gold text-black font-syne font-bold uppercase tracking-wider text-sm rounded-xl hover:bg-brand-goldLight hover:scale-105 transition-all shadow-lg shadow-brand-gold/20">
+          Explorar el Drop
+        </button>
+      </div>
+    </section>
+
+    <!-- Catalog -->
+    <section id="catalogo" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-10 border-b border-brand-border pb-6 gap-4">
+        <div>
+          <h2 class="font-syne text-3xl font-extrabold uppercase">Catálogo <span class="text-brand-gold">mvnwearz®</span></h2>
+          <p class="text-gray-400 mt-2 text-sm">Selecciona tu pieza. Stocks limitados.</p>
+        </div>
+        <div class="flex gap-2 overflow-x-auto pb-2 md:pb-0 w-full md:w-auto snap-x">
+          <button onclick="filterProducts('all')" class="filter-btn active bg-brand-gold text-black px-5 py-2.5 rounded-lg text-xs font-bold uppercase transition whitespace-nowrap snap-start">Todos</button>
+          <button onclick="filterProducts('hombre')" class="filter-btn bg-brand-dark text-gray-300 border border-brand-border hover:border-brand-gold px-5 py-2.5 rounded-lg text-xs font-bold uppercase transition whitespace-nowrap snap-start">Hombre</button>
+          <button onclick="filterProducts('mujer')" class="filter-btn bg-brand-dark text-gray-300 border border-brand-border hover:border-brand-gold px-5 py-2.5 rounded-lg text-xs font-bold uppercase transition whitespace-nowrap snap-start">Mujer</button>
+          <button onclick="filterProducts('rebajas')" class="filter-btn bg-brand-dark text-brand-sale border border-brand-sale/50 hover:bg-brand-sale hover:text-white px-5 py-2.5 rounded-lg text-xs font-bold uppercase transition whitespace-nowrap snap-start flex items-center gap-2"><i class="fa-solid fa-fire"></i> Rebajas</button>
+        </div>
+      </div>
+
+      <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Products injected via JS -->
+      </div>
+    </section>
+
+    <!-- 3D Studio -->
+    <section id="studio-3d" class="py-20 bg-brand-dark border-y border-brand-border scroll-mt-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="space-y-6">
+          <h2 class="font-syne text-4xl font-extrabold uppercase"><span class="gold-text">3D Studio</span> Inmersivo</h2>
+          <p class="text-gray-400">Inspecciona los materiales, el corte boxy y los detalles de confección en nuestro visor WebGL en tiempo real. Arrastra para rotar la prenda.</p>
+          
+          <div class="flex flex-wrap gap-4">
+            <button onclick="change3DColor(0x161616)" class="flex items-center gap-2 px-6 py-3 rounded-lg bg-black border border-gray-600 text-sm font-bold hover:border-white transition">
+              <span class="w-4 h-4 rounded-full bg-[#161616] border border-gray-500"></span> Onyx Black
+            </button>
+            <button onclick="change3DColor(0xD4AF37)" class="flex items-center gap-2 px-6 py-3 rounded-lg bg-black border border-brand-gold text-sm font-bold hover:bg-brand-gold hover:text-black transition group">
+              <span class="w-4 h-4 rounded-full bg-brand-gold group-hover:bg-black group-hover:border group-hover:border-black"></span> Imperial Gold
+            </button>
+          </div>
+        </div>
+        <div class="h-[450px] w-full bg-brand-black rounded-2xl border border-brand-border overflow-hidden relative shadow-2xl" id="three-container">
+          <div class="absolute top-4 left-4 bg-black/70 backdrop-blur-md text-xs px-3 py-1.5 rounded border border-white/10 font-mono text-gray-300 pointer-events-none flex items-center gap-2">
+            <i class="fa-solid fa-rotate"></i> Interactúa con la prenda
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NFC & Story -->
+    <section id="nfc" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-16">
+      <div class="p-8 rounded-3xl bg-brand-dark border border-brand-border space-y-6 relative overflow-hidden shadow-2xl">
+        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-brand-gold/10 blur-3xl rounded-full"></div>
+        <h3 class="font-syne text-2xl font-bold uppercase gold-text flex items-center"><i class="fa-solid fa-fingerprint mr-3 text-3xl"></i> Verificador NFC</h3>
+        <p class="text-sm text-gray-400">Toda prenda original de mvnwearz incluye un chip NFC en la etiqueta. Ingresa el código serial para validar su autenticidad.</p>
+        
+        <div class="flex flex-col sm:flex-row gap-3">
+          <input type="text" id="nfc-input" placeholder="Ej: MVN-2026-XYZ" class="flex-1 bg-black border border-brand-border rounded-xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-brand-gold font-mono uppercase transition">
+          <button onclick="verifyNFC()" class="px-8 py-3.5 bg-brand-gold text-black font-bold uppercase rounded-xl hover:bg-brand-goldLight transition text-sm flex items-center justify-center gap-2">
+            <i class="fa-solid fa-shield-halved"></i> Validar
+          </button>
+        </div>
+        <div id="nfc-result" class="hidden p-4 rounded-xl bg-emerald-900/20 border border-emerald-500/30 text-emerald-400 text-sm font-mono flex items-center gap-3 transition-all">
+          <i class="fa-solid fa-circle-check text-xl"></i>
+          <span>Pieza 100% Auténtica. Registrada en Pasto.</span>
+        </div>
+      </div>
+
+      <div class="flex flex-col justify-center space-y-6">
+        <h2 class="font-syne text-4xl font-extrabold uppercase leading-tight">
+          Desde Pasto <br> <span class="gold-text">Para el mundo</span>
+        </h2>
+        <p class="text-gray-300 leading-relaxed text-sm">
+          Establecida en 2019, <strong>mvnwearz®</strong> redefinió la estética urbana en el sur de Colombia. Inspirados por el clima andino y la cultura de la calle, creamos prendas de alto gramaje (Heavyweight) que no solo visten, sino que blindan. Diseñado para las calles, con la calidad del lujo.
+        </p>
+        <div class="flex flex-wrap gap-4 text-xs font-mono text-gray-400">
+          <span class="flex items-center gap-1.5 px-3 py-1.5 bg-brand-dark rounded-md border border-brand-border"><i class="fa-solid fa-location-dot text-brand-gold"></i> Pasto, Nariño</span>
+          <span class="flex items-center gap-1.5 px-3 py-1.5 bg-brand-dark rounded-md border border-brand-border"><i class="fa-solid fa-shirt text-brand-gold"></i> 550 GSM Cotton</span>
+          <span class="flex items-center gap-1.5 px-3 py-1.5 bg-brand-dark rounded-md border border-brand-border"><i class="fa-solid fa-lock text-brand-gold"></i> Pagos Seguros</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-brand-dark border-t border-brand-border py-12 mt-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div>
+        <span class="font-syne text-2xl font-extrabold gold-text uppercase">mvnwearz®</span>
+        <p class="text-gray-500 text-xs mt-1 font-mono">© 2019 - 2026. All rights reserved.</p>
+      </div>
+      <div class="flex gap-6 text-gray-400">
+        <button onclick="showToast('Instagram: @mvnwearz')" class="hover:text-brand-gold transition"><i class="fa-brands fa-instagram text-2xl"></i></button>
+        <button onclick="showToast('TikTok: @mvnwearz')" class="hover:text-brand-gold transition"><i class="fa-brands fa-tiktok text-2xl"></i></button>
+        <button onclick="showToast('WhatsApp: +57 316 616 9331')" class="hover:text-brand-gold transition"><i class="fa-brands fa-whatsapp text-2xl"></i></button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modals & Overlays -->
+  
+  <!-- WhatsApp Checkout Modal -->
+  <div id="wa-modal" class="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-brand-dark border border-brand-gold/50 rounded-3xl w-full max-w-md p-6 sm:p-8 relative shadow-2xl">
+      <button onclick="closeWaModal()" class="absolute top-4 right-5 text-gray-400 hover:text-white transition bg-black rounded-full w-8 h-8 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+      
+      <h3 class="font-syne text-2xl font-extrabold uppercase mb-6 text-brand-gold text-center border-b border-brand-border pb-4">Checkout Rápido</h3>
+      
+      <div id="wa-modal-content" class="mb-6">
+        <!-- Product summary injected via JS -->
+      </div>
+
+      <div class="space-y-6">
+        <div>
+          <label class="block text-xs font-bold text-gray-400 uppercase mb-3 flex items-center gap-2"><i class="fa-solid fa-ruler-horizontal"></i> 1. Selecciona tu talla</label>
+          <div class="grid grid-cols-4 gap-3" id="size-selector">
+            <button onclick="selectSize('S', this)" class="size-btn py-3 rounded-xl bg-black border-2 border-brand-border text-sm font-bold font-mono hover:border-brand-gold transition text-gray-300">S</button>
+            <button onclick="selectSize('M', this)" class="size-btn py-3 rounded-xl bg-black border-2 border-brand-border text-sm font-bold font-mono hover:border-brand-gold transition text-gray-300">M</button>
+            <button onclick="selectSize('L', this)" class="size-btn py-3 rounded-xl bg-black border-2 border-brand-border text-sm font-bold font-mono hover:border-brand-gold transition text-gray-300">L</button>
+            <button onclick="selectSize('XL', this)" class="size-btn py-3 rounded-xl bg-black border-2 border-brand-border text-sm font-bold font-mono hover:border-brand-gold transition text-gray-300">XL</button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-400 uppercase mb-3 flex items-center gap-2"><i class="fa-regular fa-credit-card"></i> 2. Método de Pago</label>
+          <select id="payment-method" class="w-full bg-black border-2 border-brand-border rounded-xl px-4 py-3.5 text-sm font-medium text-white focus:outline-none focus:border-brand-gold transition cursor-pointer">
+            <option value="">-- Seleccionar método --</option>
+            <option value="Nequi">📱 Nequi (Transferencia Directa)</option>
+            <option value="Addi">🛍️ Addi (Cuotas sin interés)</option>
+            <option value="Sistecrédito">🛒 Sistecrédito</option>
+            <option value="Tarjeta">💳 Tarjeta de Crédito / Débito (Wompi)</option>
+          </select>
+        </div>
+
+        <button onclick="generateWhatsAppOrder()" class="w-full py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-syne font-extrabold uppercase tracking-widest text-sm rounded-xl transition flex items-center justify-center gap-3 shadow-lg shadow-emerald-900/50 hover:scale-[1.02] active:scale-[0.98]">
+          <i class="fa-brands fa-whatsapp text-2xl"></i> Enviar Pedido a WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Try-On Modal -->
+  <div id="ai-modal" class="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-brand-dark border border-brand-gold/30 rounded-3xl w-full max-w-lg p-6 sm:p-8 relative shadow-2xl">
+      <button onclick="closeAiModal()" class="absolute top-4 right-5 text-gray-400 hover:text-white bg-black rounded-full w-8 h-8 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+      
+      <h3 class="font-syne text-2xl font-extrabold uppercase mb-2 gold-text flex items-center justify-center gap-3">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Probador IA
+      </h3>
+      <p class="text-xs text-center text-gray-400 mb-6">Sube tu foto de frente para simular el fit de la silueta streetwear en tu cuerpo.</p>
+      
+      <div class="border-2 border-dashed border-brand-border rounded-2xl p-8 flex flex-col items-center justify-center bg-black min-h-[250px] relative overflow-hidden group cursor-pointer hover:border-brand-gold/50 transition" onclick="document.getElementById('ai-file-input').click()">
+        <img id="ai-preview-img" src="" class="absolute inset-0 w-full h-full object-cover hidden z-10" alt="Preview">
+        
+        <div id="ai-upload-ui" class="text-center z-0">
+          <div class="w-16 h-16 rounded-full bg-brand-dark flex items-center justify-center mx-auto mb-4 border border-brand-border group-hover:border-brand-gold transition">
+            <i class="fa-solid fa-camera text-2xl text-brand-gold"></i>
+          </div>
+          <p class="text-sm font-bold text-white mb-1">Click para subir foto o selfie</p>
+          <p class="text-xs text-gray-500">Formatos: JPG, PNG</p>
+          <input type="file" id="ai-file-input" class="hidden" onchange="handleAiUpload(event)" accept="image/*">
+        </div>
+        
+        <div id="ai-loader" class="hidden flex-col items-center justify-center z-20 bg-black/80 backdrop-blur-sm absolute inset-0">
+          <div class="spinner mb-4 w-10 h-10 border-4"></div>
+          <span class="text-xs font-mono text-brand-gold uppercase tracking-widest font-bold">Generando Render VTON...</span>
+        </div>
+      </div>
+
+      <button id="ai-run-btn" disabled onclick="simulateAiRender()" class="w-full mt-6 py-4 bg-brand-gold text-black font-syne font-extrabold uppercase tracking-wider rounded-xl transition opacity-40 cursor-not-allowed shadow-lg shadow-brand-gold/20">
+        Ejecutar Renderizado
+      </button>
+    </div>
+  </div>
+
+  <!-- Chatbot Floating UI -->
+  <div id="chatbot-container" class="fixed bottom-6 right-6 z-40 flex flex-col items-end hidden sm:flex">
+    <!-- Chat Window -->
+    <div id="chat-window" class="w-80 sm:w-96 bg-brand-dark border border-brand-gold/40 rounded-2xl shadow-2xl mb-4 hidden flex-col overflow-hidden transition-all origin-bottom-right">
+      <div class="bg-brand-gold text-black p-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+          <div class="w-2.5 h-2.5 bg-black rounded-full animate-pulse"></div>
+          <span class="font-syne font-bold text-sm uppercase tracking-wider">Asistente mvnwearz</span>
+        </div>
+        <button onclick="toggleChat()" class="text-black/70 hover:text-black transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      
+      <div id="chat-history" class="p-5 h-72 overflow-y-auto space-y-4 bg-brand-black text-sm scroll-smooth">
+        <div class="flex gap-3">
+          <div class="w-8 h-8 rounded-full bg-brand-gold text-black flex items-center justify-center font-extrabold text-sm shrink-0 border-2 border-brand-dark">M</div>
+          <div class="bg-brand-dark p-3 rounded-xl border border-brand-border text-gray-200 max-w-[85%] shadow-md leading-relaxed">
+            ¡Qué tal! Bienvenido al drop de mvnwearz. ¿Te ayudo con tallas, precios o métodos de pago (Addi, Nequi, Sistecrédito)?
+          </div>
+        </div>
+      </div>
+      
+      <div class="p-3 bg-brand-dark border-t border-brand-border">
+        <form onsubmit="handleChatSubmit(event)" class="flex gap-2 relative">
+          <input type="text" id="chat-input" placeholder="Pregunta sobre el drop..." class="flex-1 bg-black border border-brand-border rounded-xl pl-4 pr-12 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition shadow-inner">
+          <button type="submit" class="absolute right-2 top-1.5 bottom-1.5 aspect-square bg-brand-gold text-black rounded-lg hover:bg-brand-goldLight transition flex items-center justify-center shadow-md">
+            <i class="fa-solid fa-paper-plane text-sm"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Floating Button -->
+    <button onclick="toggleChat()" class="w-16 h-16 bg-brand-gold hover:bg-brand-goldLight text-black rounded-full shadow-[0_0_20px_rgba(212,175,55,0.4)] flex items-center justify-center text-2xl transition-all transform hover:scale-110 relative z-50">
+      <i class="fa-solid fa-comment-dots"></i>
+      <span class="absolute top-0 right-0 w-4 h-4 bg-red-500 rounded-full border-2 border-black animate-pulse"></span>
+    </button>
+  </div>
+
+  <!-- Toast Notifier -->
+  <div id="toast" class="fixed top-24 right-4 bg-emerald-600 text-white px-5 py-4 rounded-xl shadow-2xl text-sm font-bold tracking-wide transform transition-all duration-300 translate-x-[150%] z-[60] flex items-center gap-3 border border-emerald-400/50">
+    <i class="fa-solid fa-bell text-lg"></i> <span id="toast-msg">Notificación</span>
+  </div>
+
+  <script>
+    // Critical Configuration
+    const PHONE_NUMBER = "573166169331"; // Updated as requested
+    
+    // Product Database (Using real imaginary models via Unsplash)
+    const products = [
+      { id: 1, title: "Onyx Heavyweight Hoodie", cat: "hombre", price: 219000, img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=800&q=80" },
+      { id: 2, title: "Sand Boxy Tee", cat: "hombre", price: 110000, img: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=800&q=80" },
+      { id: 3, title: "Gothic Signature Black Tee", cat: "hombre", price: 110000, img: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=800&q=80" },
+      { id: 4, title: "Urban White Crop Top", cat: "mujer", price: 89000, img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" },
+      { id: 5, title: "Nightfall Street Hoodie", cat: "mujer", price: 229000, img: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80" },
+      { id: 6, title: "Crimson Edition Hoodie", cat: "rebajas", price: 179000, oldPrice: 250000, img: "https://images.unsplash.com/photo-1611312449408-fcece27cdbb7?auto=format&fit=crop&w=800&q=80", badge: "-28% OFF" }
+    ];
+
+    let currentOrder = { product: null, size: null, payment: null };
+
+    // Initialize App
+    window.onload = () => {
+      renderProducts(products);
+      startCountdown();
+      initThreeJS();
+    };
+
+    const formatCOP = (num) => "$" + num.toLocaleString('es-CO') + " COP";
+
+    // UI Rendering
+    function renderProducts(items) {
+      const grid = document.getElementById('product-grid');
+      grid.innerHTML = '';
+      
+      if(items.length === 0) {
+        grid.innerHTML = '<div class="col-span-full text-center py-10 text-gray-500 font-mono">No hay productos en esta categoría.</div>';
+        return;
+      }
+      
+      items.forEach(p => {
+        const isRebaja = p.cat === 'rebajas';
+        const card = document.createElement('div');
+        card.className = `bg-brand-dark rounded-2xl border ${isRebaja ? 'border-brand-sale/60 neon-rebajas' : 'border-brand-border hover:border-brand-gold/50'} overflow-hidden transition-all duration-300 group shadow-lg hover:shadow-2xl`;
+        
+        card.innerHTML = `
+          <div class="relative aspect-[4/5] bg-black overflow-hidden flex items-center justify-center">
+            ${isRebaja ? `<div class="absolute top-4 left-4 bg-brand-sale text-white text-[11px] font-extrabold px-3 py-1.5 rounded-full uppercase z-10 animate-pulse shadow-lg shadow-brand-sale/50">${p.badge}</div>` : ''}
+            <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out" loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-syne font-bold text-white text-xl leading-tight mb-3 group-hover:text-brand-gold transition">${p.title}</h3>
+            <div class="flex items-center gap-3 mb-5">
+              ${p.oldPrice ? `<span class="text-sm text-gray-500 line-through font-mono">${formatCOP(p.oldPrice)}</span>` : ''}
+              <span class="text-brand-gold font-mono font-bold text-lg">${formatCOP(p.price)}</span>
+            </div>
+            
+            <div class="flex gap-3">
+              <button onclick="openWaModal(${p.id})" class="flex-1 bg-white hover:bg-gray-200 text-black text-xs font-bold uppercase py-3 rounded-xl transition flex items-center justify-center gap-2 shadow-md">
+                <i class="fa-brands fa-whatsapp text-emerald-600 text-lg"></i> Comprar
+              </button>
+              <button onclick="openAiModal()" title="Probar con IA" class="w-12 h-12 bg-black border border-brand-border text-brand-gold rounded-xl flex items-center justify-center hover:border-brand-gold hover:bg-brand-gold/10 transition shadow-md">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+              </button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterProducts(cat) {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-gold', 'text-black', 'bg-brand-sale', 'text-white');
+        btn.classList.add('bg-brand-dark', 'text-gray-300');
+        if(btn.innerText.toLowerCase().includes('rebajas')) {
+           btn.classList.add('text-brand-sale');
+        }
+      });
+      
+      const buttons = Array.from(document.querySelectorAll('.filter-btn'));
+      const targetBtn = buttons.find(b => {
+          const t = b.innerText.toLowerCase();
+          return cat === 'all' ? t.includes('todos') : t.includes(cat);
+      });
+
+      if(targetBtn) {
+        targetBtn.classList.remove('bg-brand-dark', 'text-gray-300', 'text-brand-sale');
+        if(cat === 'rebajas') targetBtn.classList.add('bg-brand-sale', 'text-white');
+        else targetBtn.classList.add('bg-brand-gold', 'text-black');
+      }
+
+      if(cat === 'all') renderProducts(products);
+      else renderProducts(products.filter(p => p.cat === cat));
+    }
+
+    // Modal Operations
+    function openWaModal(id) {
+      currentOrder.product = products.find(p => p.id === id);
+      currentOrder.size = null;
+      currentOrder.payment = null;
+      document.getElementById('payment-method').value = "";
+      
+      document.querySelectorAll('.size-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-gold', 'text-black', 'border-brand-gold', 'scale-105');
+        btn.classList.add('bg-black', 'text-gray-300', 'border-brand-border');
+      });
+
+      const content = document.getElementById('wa-modal-content');
+      content.innerHTML = `
+        <div class="flex items-center gap-5 bg-black p-4 rounded-2xl border border-brand-border shadow-inner">
+          <div class="w-20 h-24 rounded-lg overflow-hidden shrink-0">
+             <img src="${currentOrder.product.img}" class="w-full h-full object-cover">
+          </div>
+          <div>
+            <h4 class="text-base font-bold text-white leading-tight mb-1">${currentOrder.product.title}</h4>
+            <p class="text-brand-gold font-mono font-bold">${formatCOP(currentOrder.product.price)}</p>
+          </div>
+        </div>
+      `;
+      
+      document.getElementById('wa-modal').classList.remove('hidden');
+    }
+
+    function closeWaModal() { document.getElementById('wa-modal').classList.add('hidden'); }
+
+    function selectSize(size, btnElement) {
+      currentOrder.size = size;
+      document.querySelectorAll('.size-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-gold', 'text-black', 'border-brand-gold', 'scale-105');
+        btn.classList.add('bg-black', 'text-gray-300', 'border-brand-border');
+      });
+      btnElement.classList.remove('bg-black', 'text-gray-300', 'border-brand-border');
+      btnElement.classList.add('bg-brand-gold', 'text-black', 'border-brand-gold', 'scale-105');
+    }
+
+    function generateWhatsAppOrder() {
+      const pMethod = document.getElementById('payment-method').value;
+      
+      if(!currentOrder.size) { 
+        showToast("⚠️ Por favor selecciona una talla.", true); 
+        return; 
+      }
+      if(!pMethod) { 
+        showToast("⚠️ Por favor selecciona un método de pago.", true); 
+        return; 
+      }
+
+      const text = `*¡Hola mvnwearz!* 🔥\nQuiero confirmar mi orden del nuevo drop:\n\n` +
+                   `👕 *Prenda:* ${currentOrder.product.title}\n` +
+                   `📏 *Talla:* ${currentOrder.size}\n` +
+                   `💰 *Valor:* ${formatCOP(currentOrder.product.price)}\n` +
+                   `💳 *Método de pago:* ${pMethod}\n\n` +
+                   `Por favor, indíquenme los pasos a seguir para completar la compra. (Origen: Pasto)`;
+                   
+      const url = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(text)}`;
+      
+      // Close modal and show success toast before redirecting
+      closeWaModal();
+      showToast("Redirigiendo a WhatsApp...");
+      
+      setTimeout(() => {
+        window.open(url, '_blank');
+      }, 500);
+    }
+
+    // AI Simulator Logic
+    function openAiModal() {
+      document.getElementById('ai-modal').classList.remove('hidden');
+      const preview = document.getElementById('ai-preview-img');
+      preview.src = "";
+      preview.classList.add('hidden');
+      preview.style.filter = "none";
+      document.getElementById('ai-upload-ui').classList.remove('hidden');
+      
+      const btn = document.getElementById('ai-run-btn');
+      btn.disabled = true;
+      btn.classList.add('opacity-40', 'cursor-not-allowed');
+      btn.innerHTML = "Ejecutar Renderizado";
+      btn.classList.remove('bg-emerald-500', 'text-white');
+      btn.classList.add('bg-brand-gold', 'text-black');
+    }
+
+    function closeAiModal() { document.getElementById('ai-modal').classList.add('hidden'); }
+
+    function handleAiUpload(e) {
+      const file = e.target.files[0];
+      if(file) {
+        const url = URL.createObjectURL(file);
+        const preview = document.getElementById('ai-preview-img');
+        preview.src = url;
+        preview.classList.remove('hidden');
+        preview.classList.add('z-10');
+        document.getElementById('ai-upload-ui').classList.add('hidden');
+        
+        const btn = document.getElementById('ai-run-btn');
+        btn.disabled = false;
+        btn.classList.remove('opacity-40', 'cursor-not-allowed');
+      }
+    }
+
+    function simulateAiRender() {
+      document.getElementById('ai-loader').classList.remove('hidden');
+      document.getElementById('ai-loader').classList.add('flex');
+      const btn = document.getElementById('ai-run-btn');
+      btn.disabled = true;
+      btn.classList.add('opacity-80');
+      btn.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Procesando...";
+      
+      setTimeout(() => {
+        document.getElementById('ai-loader').classList.add('hidden');
+        document.getElementById('ai-loader').classList.remove('flex');
+        
+        btn.innerHTML = "<i class='fa-solid fa-check text-lg'></i> Fit Generado";
+        btn.classList.remove('bg-brand-gold', 'text-black', 'opacity-80');
+        btn.classList.add('bg-emerald-500', 'text-white');
+        
+        // Simulating the result visually
+        document.getElementById('ai-preview-img').style.filter = "contrast(1.15) sepia(0.2) hue-rotate(-5deg) brightness(0.9)";
+        showToast("🌟 Visualización AI generada.");
+      }, 2500);
+    }
+
+    // NFC Verifier
+    function verifyNFC() {
+      const val = document.getElementById('nfc-input').value.trim();
+      if(val.length > 5) {
+        document.getElementById('nfc-result').classList.remove('hidden');
+        showToast("Código validado exitosamente.");
+      } else {
+        showToast("El código ingresado es inválido.", true);
+        document.getElementById('nfc-result').classList.add('hidden');
+      }
+    }
+
+    // Tools
+    function startCountdown() {
+      let time = 3600 * 5 + 1500; 
+      setInterval(() => {
+        if(time <= 0) time = 3600 * 24; // Reset if hits zero
+        time--;
+        const h = Math.floor(time / 3600).toString().padStart(2, '0');
+        const m = Math.floor((time % 3600) / 60).toString().padStart(2, '0');
+        const s = (time % 60).toString().padStart(2, '0');
+        const counter = document.getElementById('countdown');
+        if(counter) counter.innerText = `${h}h ${m}m ${s}s`;
+      }, 1000);
+    }
+
+    function showToast(msg, isError = false) {
+      const t = document.getElementById('toast');
+      const icon = isError ? '<i class="fa-solid fa-circle-exclamation"></i>' : '<i class="fa-solid fa-bell"></i>';
+      t.innerHTML = `${icon} <span>${msg}</span>`;
+      t.className = `fixed top-24 right-4 px-5 py-4 rounded-xl shadow-2xl text-sm font-bold tracking-wide transform transition-all duration-300 z-[60] flex items-center gap-3 border ${isError ? 'bg-red-600 border-red-400/50 text-white' : 'bg-emerald-600 border-emerald-400/50 text-white'}`;
+      
+      // Slide in
+      requestAnimationFrame(() => {
+        t.classList.remove('translate-x-[150%]');
+      });
+      
+      // Slide out
+      setTimeout(() => {
+        t.classList.add('translate-x-[150%]');
+      }, 3500);
+    }
+
+    // Chatbot Implementation (LLM Gemini API Ready)
+    function toggleChat() {
+      const win = document.getElementById('chat-window');
+      win.classList.toggle('hidden');
+      win.classList.toggle('flex');
+    }
+
+    function appendMessage(text, isUser) {
+      const container = document.getElementById('chat-history');
+      const div = document.createElement('div');
+      div.className = "flex gap-3 " + (isUser ? "justify-end" : "");
+      
+      if(isUser) {
+        div.innerHTML = `<div class="bg-brand-gold text-black p-3 rounded-xl text-sm max-w-[85%] font-medium shadow-md">${text}</div>`;
+      } else {
+        div.innerHTML = `
+          <div class="w-8 h-8 rounded-full bg-brand-gold text-black flex items-center justify-center font-extrabold text-sm shrink-0 border-2 border-brand-dark">M</div>
+          <div class="bg-brand-dark p-3 rounded-xl border border-brand-border text-gray-200 text-sm max-w-[85%] shadow-md leading-relaxed">${text}</div>
+        `;
+      }
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    async function handleChatSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if(!text) return;
+
+      appendMessage(text, true);
+      input.value = "";
+      
+      // Add Typing Indicator
+      const typingId = "typing-" + Date.now();
+      const container = document.getElementById('chat-history');
+      const div = document.createElement('div');
+      div.id = typingId;
+      div.className = "flex gap-3";
+      div.innerHTML = `
+        <div class="w-8 h-8 rounded-full bg-brand-gold text-black flex items-center justify-center font-extrabold text-sm shrink-0 border-2 border-brand-dark">M</div>
+        <div class="bg-brand-dark p-3 rounded-xl border border-brand-border flex gap-1 items-center shadow-md">
+          <div class="w-2 h-2 bg-brand-gold rounded-full animate-bounce"></div>
+          <div class="w-2 h-2 bg-brand-gold rounded-full animate-bounce" style="animation-delay: 0.15s"></div>
+          <div class="w-2 h-2 bg-brand-gold rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
+        </div>
+      `;
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+
+      try {
+        const apiKey = ""; // API KEY goes here. Empty for Canvas env.
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+        
+        const payload = {
+          contents: [{ parts: [{ text: text }] }],
+          systemInstruction: {
+            parts: [{ text: "Eres el asistente virtual experto en estilo de 'mvnwearz', una marca colombiana de streetwear de lujo originada en Pasto (creada en 2019). Responde de manera corta (1 a 3 líneas máximo), con actitud urbana, directa y exclusiva. Opciones de pago aceptadas: Nequi, Addi, Sistecrédito y Tarjeta. Número de WhatsApp para ventas: 573166169331." }]
+          }
+        };
+
+        const res = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        
+        const data = await res.json();
+        const typingEl = document.getElementById(typingId);
+        if(typingEl) typingEl.remove();
+        
+        if (data.candidates && data.candidates[0].content.parts[0].text) {
+          appendMessage(data.candidates[0].content.parts[0].text, false);
+        } else {
+          appendMessage("Hubo un error en la Matrix. Tira un DM al WhatsApp: +57 316 616 9331.", false);
+        }
+      } catch (err) {
+        const typingEl = document.getElementById(typingId);
+        if(typingEl) typingEl.remove();
+        appendMessage("Se cortó la conexión. Escríbenos directo al WhatsApp para ayudarte con el drop.", false);
+      }
+    }
+
+    let meshMaterial;
+    function initThreeJS() {
+      const container = document.getElementById('three-container');
+      if(!container) return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      container.appendChild(renderer.domElement);
+
+      // Using a stylized geometry to represent the fabric/garment
+      const geometry = new THREE.TorusKnotGeometry(1.4, 0.5, 128, 32);
+      meshMaterial = new THREE.MeshStandardMaterial({ 
+        color: 0x161616, 
+        roughness: 0.8,
+        metalness: 0.1
+      });
+      const garmentMesh = new THREE.Mesh(geometry, meshMaterial);
+      scene.add(garmentMesh);
+
+      // Lighting configuration
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+      scene.add(ambientLight);
+      
+      const dirLight = new THREE.DirectionalLight(0xD4AF37, 1.2);
+      dirLight.position.set(5, 5, 5);
+      scene.add(dirLight);
+      
+      const backLight = new THREE.DirectionalLight(0x444444, 0.8);
+      backLight.position.set(-5, -5, -5);
+      scene.add(backLight);
+
+      camera.position.z = 6;
+
+      // Mouse/Touch Interaction
+      let isDragging = false;
+      let previousMousePosition = { x: 0, y: 0 };
+
+      const onStart = (e) => {
+        isDragging = true;
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        previousMousePosition = { x: clientX, y: clientY };
+      };
+
+      const onEnd = () => isDragging = false;
+
+      const onMove = (e) => {
+        if (isDragging) {
+          const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+          const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+          const deltaMove = { 
+            x: clientX - previousMousePosition.x, 
+            y: clientY - previousMousePosition.y 
+          };
+          garmentMesh.rotation.y += deltaMove.x * 0.01;
+          garmentMesh.rotation.x += deltaMove.y * 0.01;
+          previousMousePosition = { x: clientX, y: clientY };
+        }
+      };
+
+      container.addEventListener('mousedown', onStart);
+      window.addEventListener('mouseup', onEnd);
+      container.addEventListener('mousemove', onMove);
+      
+      container.addEventListener('touchstart', onStart, {passive: true});
+      window.addEventListener('touchend', onEnd);
+      container.addEventListener('touchmove', onMove, {passive: true});
+
+      window.addEventListener('resize', () => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+        if(!isDragging) {
+           garmentMesh.rotation.y += 0.003;
+           garmentMesh.rotation.x += 0.001;
+        }
+        renderer.render(scene, camera);
+      }
+      animate();
+    }
+
+    function change3DColor(hexColor) {
+      if(meshMaterial) {
+        meshMaterial.color.setHex(hexColor);
+        // Adjust metalness/roughness based on color selected
+        if(hexColor === 0xD4AF37) { // Gold
+            meshMaterial.metalness = 0.6;
+            meshMaterial.roughness = 0.3;
+        } else { // Black
+            meshMaterial.metalness = 0.1;
+            meshMaterial.roughness = 0.8;
+        }
+      }
+    }
+  </script>
+</body>
+</html>
